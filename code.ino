@@ -48,12 +48,12 @@ void loop() {
     // Reed 2: Smoothly slow down to 60 over 2 seconds, wait, reverse, and speed up
     else if (digitalRead(REED2) == LOW) {
       Serial.println("Reed 2 Hit - Slowing down to 60...");
-      for (int s = currentSpeed; s >= 60; s--) {
+      for (int s = currentSpeed; s >= 50; s--) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(15);
+        delay(13);
       }
-      currentSpeed = 60;
+      currentSpeed = 50;
       Serial.print("Current Speed: ");
       Serial.println(currentSpeed);
       
@@ -89,12 +89,12 @@ void loop() {
     // Reed 2 (Reverse): Smoothly slow down to 60 over 2 seconds, wait, reverse, and speed up
     else if (digitalRead(REED2) == LOW) {
       Serial.println("Reed 2 (Reverse) Hit - Slowing down to 60...");
-      for (int s = currentSpeed; s >= 60; s--) {
+      for (int s = currentSpeed; s >= 50; s--) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(15);
+        delay(17);
       }
-      currentSpeed = 60;
+      currentSpeed = 50;
       Serial.print("Current Speed: ");
       Serial.println(currentSpeed);
       
