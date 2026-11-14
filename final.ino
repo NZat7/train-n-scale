@@ -1,12 +1,12 @@
 const int ENA = 9;
-const int IN1 = 5;
-const int IN2 = 6;
+const int IN1 = 6;
+const int IN2 = 5;
 
-const int REED1 = 3;  // Home / Stop sensor on return
-const int REED2 = 12; // Far station sensor
+const int REED1 = 12;  // Home / Stop sensor on return
+const int REED2 = 3; // Far station sensor
 
 const int LDR_PIN = A2;
-const int DARK_THRESHOLD = 300; // Adjust based on your Serial Monitor readings for darkness
+const int DARK_THRESHOLD = 800; // Adjust based on your Serial Monitor readings for darkness
 
 bool movingForward = true;
 bool trainRunning = false; // Tracks whether a round trip is currently active
@@ -47,7 +47,7 @@ void loop() {
       for (int s = 0; s <= 140; s++) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(26);
+        delay(20);
       }
       Serial.print("Current Speed: ");
       Serial.println(currentSpeed);
@@ -74,7 +74,7 @@ void loop() {
       for (int s = currentSpeed; s >= 60; s--) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(7);
+        delay(10);
       }
       currentSpeed = 60;
       
@@ -88,7 +88,7 @@ void loop() {
       for (int s = 60; s <= 140; s++) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(20);
+        delay(25);
       }
       currentSpeed = 140;
       Serial.print("Current Speed: ");
