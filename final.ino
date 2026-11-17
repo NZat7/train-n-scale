@@ -1,16 +1,28 @@
+#include <Wire.h>
+#include <EEPROM.h>
+#include "DFRobot_LedDisplayModule.h"
+
+// Motor & Driver Pins
 const int ENA = 9;
 const int IN1 = 6;
 const int IN2 = 5;
 
+// Sensors
 const int REED1 = 12;  // Home / Stop sensor on return
-const int REED2 = 3; // Far station sensor
-
+const int REED2 = 3;   // Far station sensor
 const int LDR_PIN = A2;
+
 const int DARK_THRESHOLD = 800; // Adjust based on your Serial Monitor readings for darkness
 
+// LED Display Module (I2C Address 0x48)
+DFRobot_LedDisplayModule LED(&Wire, 0x48);
+
+// State Variables
 bool movingForward = true;
 bool trainRunning = false; // Tracks whether a round trip is currently active
+bool armed = true;         // Tracks whether the system has seen light and is ready to trigger again
 int currentSpeed = 0;
+int count = 0;             // Total round trip counter
 
 void setup() {
   pinMode(ENA, OUTPUT);
@@ -21,9 +33,19 @@ void setup() {
   pinMode(REED2, INPUT_PULLUP);
   pinMode(LDR_PIN, INPUT);
 
+  // Initialize Wire and LED Display
+  Wire.begin();
+  while (LED.begin(LED.e4Bit) != 0);  // Wait for screen to connect
+  LED.setBrightness(4);
+
+  // Load saved count from memory
+  EEPROM.get(0, count);
+  if (count < 0 || count > 9999) count = 0;
+  showNumber(count);
+
   // Initialize Serial Monitor
   Serial.begin(9600);
-  Serial.println("Train System Initialized. Waiting for darkness to start...");
+  Serial.println("Train System Initialized with LED Counter. Waiting for darkness to start...");
 }
 
 void loop() {
@@ -31,13 +53,24 @@ void loop() {
   if (!trainRunning) {
     int ldrValue = analogRead(LDR_PIN);
     Serial.print("LDR Value: ");
-    Serial.println(ldrValue);
+    Serial.print(ldrValue);
+    Serial.print(" | Armed: ");
+    Serial.println(armed ? "YES" : "NO (Waiting for light)");
 
-    // Check if it gets dark (higher values = darker)
-    if (ldrValue > DARK_THRESHOLD) { 
+    // 1. Check if it's bright again to re-arm the system
+    if (ldrValue <= (DARK_THRESHOLD - 100)) { // Hysteresis buffer
+      if (!armed) {
+        armed = true;
+        Serial.println("Light detected! System re-armed for the next trigger.");
+      }
+    }
+
+    // 2. Check if it gets dark AND the system is armed
+    if (ldrValue > DARK_THRESHOLD && armed) { 
       Serial.println("Darkness detected! Starting 1 round trip...");
       trainRunning = true;
       movingForward = true;
+      armed = false; // Disarm so it cannot trigger again until it sees light
       
       // Start moving forward from home station
       digitalWrite(IN1, HIGH);
@@ -74,7 +107,7 @@ void loop() {
       for (int s = currentSpeed; s >= 60; s--) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(10);
+        delay(15);
       }
       currentSpeed = 60;
       
@@ -107,7 +140,7 @@ void loop() {
       Serial.println(currentSpeed);
       while (digitalRead(REED2) == LOW);
     }
-    // Reed 1 (Reverse): Back at home station - stop completely
+    // Reed 1 (Reverse): Back at home station - stop completely & increment counter
     else if (digitalRead(REED1) == LOW) {
       Serial.println("Reed 1 (Reverse) Hit - Arrived home. Stopping train...");
       
@@ -123,13 +156,61 @@ void loop() {
       // Turn off motor driver outputs
       digitalWrite(IN1, LOW);
       digitalWrite(IN2, LOW);
+
+      // --- INCREMENT COUNTER & SAVE ---
+      count++;
+      if (count > 9999) count = 0;
+      EEPROM.put(0, count);
+
+      // Party animation every 50 trips
+      if (count % 50 == 0) {
+        unsigned long start = millis();
+        LED.setBrightness(4);
+
+        // 1. Turbo Scanner (0 to 2.0 seconds)
+        while (millis() - start < 2000) {
+          for (int d = 1; d <= 4; d++) { LED.setDisplayArea(d); LED.print("-"); delay(35); }
+          for (int d = 3; d >= 2; d--) { LED.setDisplayArea(d); LED.print("-"); delay(35); }
+        }
+
+        // 2. Random Glitch Overload (2.0 to 3.5 seconds)
+        while (millis() - start < 3500) {
+          LED.setDisplayArea(1, 2, 3, 4);
+          int pick = random(3);
+          if (pick == 1) LED.print("----");
+          else           LED.print(random(1000, 9999));
+          delay(45);
+        }
+
+        // 3. Light Strobe on Milestone Number (3.5 to 5.0 seconds)
+        showNumber(count);
+        while (millis() - start < 5000) {
+          LED.setBrightness(0);
+          delay(150);
+          LED.setBrightness(4);
+          delay(150);
+        }
+
+        LED.setBrightness(5); // Restore normal brightness
+      }
+
+      showNumber(count); // Update display with new count
       
-      Serial.println("Round trip complete. Waiting for next dark trigger.");
+      Serial.println("Round trip complete. Waiting for light before next trigger cycle.");
       
-      // Reset state so it waits for darkness again
+      // Reset state so it waits for light -> then darkness
       trainRunning = false;
       
       while (digitalRead(REED1) == LOW);
     }
   }
+}
+
+// Helper function to display numbers without leading zeros
+void showNumber(int n) {
+  if (n < 10)       LED.setDisplayArea(4);
+  else if (n < 100)  LED.setDisplayArea(3, 4);
+  else if (n < 1000) LED.setDisplayArea(2, 3, 4);
+  else               LED.setDisplayArea(1, 2, 3, 4);
+  LED.print(n);
 }
