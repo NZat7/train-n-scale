@@ -12,7 +12,7 @@ const int REED1 = 12;  // Home / Stop sensor on return
 const int REED2 = 3;   // Far station sensor
 const int LDR_PIN = A2;
 
-const int DARK_THRESHOLD = 800; // Adjust based on your Serial Monitor readings for darkness
+const int DARK_THRESHOLD = 750; // Adjust based on your Serial Monitor readings for darkness
 
 // LED Display Module (I2C Address 0x48)
 DFRobot_LedDisplayModule LED(&Wire, 0x48);
