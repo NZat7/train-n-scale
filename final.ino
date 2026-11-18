@@ -12,12 +12,10 @@ const int REED1 = 12;  // Home / Stop sensor on return
 const int REED2 = 3;   // Far station sensor
 const int LDR_PIN = A2;
 
-const int DARK_THRESHOLD = 750; // Adjust based on your Serial Monitor readings for darkness
+const int DARK_THRESHOLD = 750; // readings for darkness
 
-// LED Display Module (I2C Address 0x48)
 DFRobot_LedDisplayModule LED(&Wire, 0x48);
 
-// State Variables
 bool movingForward = true;
 bool trainRunning = false; // Tracks whether a round trip is currently active
 bool armed = true;         // Tracks whether the system has seen light and is ready to trigger again
@@ -33,9 +31,9 @@ void setup() {
   pinMode(REED2, INPUT_PULLUP);
   pinMode(LDR_PIN, INPUT);
 
-  // Initialize Wire and LED Display
+  
   Wire.begin();
-  while (LED.begin(LED.e4Bit) != 0);  // Wait for screen to connect
+  while (LED.begin(LED.e4Bit) != 0);  // screen connect
   LED.setBrightness(4);
 
   // Load saved count from memory
@@ -43,7 +41,6 @@ void setup() {
   if (count < 0 || count > 9999) count = 0;
   showNumber(count);
 
-  // Initialize Serial Monitor
   Serial.begin(9600);
   Serial.println("Train System Initialized with LED Counter. Waiting for darkness to start...");
 }
@@ -58,10 +55,10 @@ void loop() {
     Serial.println(armed ? "YES" : "NO (Waiting for light)");
 
     // 1. Check if it's bright again to re-arm the system
-    if (ldrValue <= (DARK_THRESHOLD - 100)) { // Hysteresis buffer
+    if (ldrValue <= (DARK_THRESHOLD - 100)) { 
       if (!armed) {
         armed = true;
-        Serial.println("Light detected! System re-armed for the next trigger.");
+        Serial.println("Light detected! System re-armed.");
       }
     }
 
@@ -162,18 +159,16 @@ void loop() {
       if (count > 9999) count = 0;
       EEPROM.put(0, count);
 
-      // Party animation every 50 trips
+      // Party easter egg every 50 trips
       if (count % 50 == 0) {
         unsigned long start = millis();
         LED.setBrightness(4);
 
-        // 1. Turbo Scanner (0 to 2.0 seconds)
         while (millis() - start < 2000) {
           for (int d = 1; d <= 4; d++) { LED.setDisplayArea(d); LED.print("-"); delay(35); }
           for (int d = 3; d >= 2; d--) { LED.setDisplayArea(d); LED.print("-"); delay(35); }
         }
 
-        // 2. Random Glitch Overload (2.0 to 3.5 seconds)
         while (millis() - start < 3500) {
           LED.setDisplayArea(1, 2, 3, 4);
           int pick = random(3);
@@ -182,7 +177,6 @@ void loop() {
           delay(45);
         }
 
-        // 3. Light Strobe on Milestone Number (3.5 to 5.0 seconds)
         showNumber(count);
         while (millis() - start < 5000) {
           LED.setBrightness(0);
