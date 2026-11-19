@@ -208,4 +208,4 @@ void showNumber(int n) {
   else               LED.setDisplayArea(1, 2, 3, 4);
   LED.print(n);
 }
-//Project by Noor Zatara, Samuel Kuperhouse and Bayezid Sikdir
+//Project by Noor Zatara, Samuel Kuperhouse and Bayezid Sikder
