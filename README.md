@@ -14,6 +14,13 @@ which prohibits the current on last rail of the trains path from flowing.
 
 images of the train:
 
-![](FrontView.jpg)
+![](20261124_095515.jpg)
 
-![](BackView.jpg)
+![](20261124_095440.jpg)
+
+![](TopView.jpg)
+
+
+Image of the sensor:
+
+![](20261124_085622.jpg)
