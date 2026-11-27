@@ -29,3 +29,7 @@ images of the train:
 Image of the sensor:
 
 ![](20261124_085622.jpg)
+
+Image of the counter:
+
+![](20261117_103706.jpg)
