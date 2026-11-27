@@ -12,6 +12,7 @@ The Railway is equipped with an Emergency brake system consisting of diodes that
 forces the current to go into one direction, 
 which prohibits the current on last rail of the trains path from flowing.
 
+images of the train:
 
 ![](TopView.jpg)
 ![](FrontView.jpg)
