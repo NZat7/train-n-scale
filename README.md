@@ -1,4 +1,4 @@
-This is a Mechatronics and Computational Physics final project made by Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
+This is a Mechatronics and Computational Physics final project with teacher Stephan Bracher made by Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
 It is a modification to a winter 2026 integrative project by 
 Fatima Zahra Boucif, Nada Boukhari, Mariam Elgarh and Sarah Meghdir.
 
@@ -48,3 +48,7 @@ Images of the electronics system:
 Circuit Schematic:
 
 ![](203-SNC-VA.png)
+
+Sources:
+
+Boucif, F. Z., Boukhari, N., Elgarh, M., & Meghdir, S. (2026, May 18). Automated train with track-based control. Vanier College.
