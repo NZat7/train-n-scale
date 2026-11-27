@@ -16,6 +16,4 @@ images of the train:
 
 ![](FrontView.jpg)
 
-![](TopView.jpg)
-
 ![](BackView.jpg)
