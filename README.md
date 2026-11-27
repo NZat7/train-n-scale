@@ -1,5 +1,4 @@
-This is a Mechatronics and Computational Physics final project. 
-Made by Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
+This is a Mechatronics and Computational Physics final project made by Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
 It is a modification to a winter 2026 integrative project by 
 Fatima Zahra Boucif, Nada Boukhari, Mariam Elgarh and Sarah Meghdir.
 
