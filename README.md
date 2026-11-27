@@ -33,3 +33,14 @@ Image of the sensor:
 Image of the counter:
 
 ![](20261124_085616.jpg)
+
+Image of the braking system:
+
+![](20261117_103706.jpg)
+
+Images of the electronics system:
+
+![](20261117_101059.jpg)
+
+
+![](20261113_122308.jpg)
