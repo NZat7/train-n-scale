@@ -14,6 +14,8 @@ which prohibits the current on last rail of the trains path from flowing.
 
 images of the train:
 
-![](TopView.jpg)
 ![](FrontView.jpg)
+
+![](TopView.jpg)
+
 ![](BackView.jpg)
