@@ -44,3 +44,7 @@ Images of the electronics system:
 
 
 ![](20261113_122308.jpg)
+
+Circuit Schematic:
+
+![](
