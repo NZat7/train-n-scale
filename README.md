@@ -1,4 +1,8 @@
 This is a Mechatronics and Computational Physics final project. 
+Made by Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
+It is a modification to a winter 2026 integrative project by 
+Fatima Zahra Boucif, Nada Boukhari, Mariam Elgarh and Sarah Meghdir.
+
 It is an N-Scale model of the Rhaetian Railway train made by Kato. 
 The train is activated when the photoresistor is covered. 
 Upon activation, the train completes a full round trip and increases the count on the LED display.
