@@ -47,4 +47,4 @@ Images of the electronics system:
 
 Circuit Schematic:
 
-![](203-SNC-VA Mechatronics and Computational Physics (1).png)
+![](203-SNC-VA.png)
