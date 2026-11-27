@@ -13,4 +13,6 @@ forces the current to go into one direction,
 which prohibits the current on last rail of the trains path from flowing.
 
 
-TopVoew.JPG
+![](TopView.jpg)
+![](FrontView.jpg)
+![](BackView.jpg)
