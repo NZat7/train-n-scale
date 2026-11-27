@@ -13,7 +13,7 @@ forces the current to go into one direction,
 which prohibits the current on last rail of the trains path from flowing.
 
 code:
-![](final.ino)
+[link text](final.ino)
 
 images of the train:
 
