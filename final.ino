@@ -104,7 +104,7 @@ void loop() {
       for (int s = currentSpeed; s >= 60; s--) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(15);
+        delay(33);
       }
       currentSpeed = 60;
       
@@ -145,7 +145,7 @@ void loop() {
       for (int s = currentSpeed; s >= 0; s--) {
         analogWrite(ENA, s);
         currentSpeed = s;
-        delay(25);
+        delay(31);
       }
       currentSpeed = 0;
       analogWrite(ENA, 0);
