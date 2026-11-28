@@ -1,4 +1,5 @@
-This is a Mechatronics and Computational Physics final project with teacher Stephan Bracher made by Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
+This is a Mechatronics and Computational Physics final project with teacher Stephan Bracher made by 
+Noor Zatara, Bayezid Sikder and Samuel Kuperhouse.
 It is a modification to a winter 2026 integrative project by 
 Fatima Zahra Boucif, Nada Boukhari, Mariam Elgarh and Sarah Meghdir.
 
@@ -10,6 +11,11 @@ The train runs when one rail acts as the positive rail and the other as a negati
 this allows the train to act as a bridge to allow the current to flow through it, 
 which makes the motors start spinning.
 reversing the signs allows the train to move in the opposite way.
+
+The train has a magnet hidden inside. as it moves along the track, it hits 2 reed switches. 
+Before hitting the first one, the train accelerates on its own. The first reed allows it to stay at
+a constant speed. The second one allows it to decelerate to its first stop. When the train reverses,
+the reeds switch roles to allow the train to have the same controlled journey back to the start.
 
 The Railway is equipped with an Emergency brake system consisting of diodes that 
 forces the current to go into one direction, 
